@@ -74,9 +74,7 @@ pause;
 
 fprintf('\nRunning Gradient Descent ...\n')
 % run gradient descent
-[theta, J_hist] = gradientDescent(X, y, theta, alpha, iterations);
-figure(2)
-plot(J_hist)
+theta = gradientDescent(X, y, theta, alpha, iterations);
 
 % print theta to screen
 fprintf('Theta found by gradient descent:\n');
@@ -85,7 +83,6 @@ fprintf('Expected theta values (approx)\n');
 fprintf(' -3.6303\n  1.1664\n\n');
 
 % Plot the linear fit
-figure(1)
 hold on; % keep previous plot visible
 plot(X(:,2), X*theta, '-')
 legend('Training data', 'Linear regression')
