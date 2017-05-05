@@ -137,6 +137,7 @@ X_poly = polyFeatures(X, p);
 [X_poly, mu, sigma] = featureNormalize(X_poly);  % Normalize
 X_poly = [ones(m, 1), X_poly];                   % Add Ones
 
+assert(size(X_poly, 2) == p+1);
 % Map X_poly_test and normalize (using mu and sigma)
 X_poly_test = polyFeatures(Xtest, p);
 X_poly_test = bsxfun(@minus, X_poly_test, mu);
@@ -164,7 +165,7 @@ pause;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 1;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
@@ -203,6 +204,17 @@ pause;
 
 [lambda_vec, error_train, error_val] = ...
     validationCurve(X_poly, y, X_poly_val, yval);
+
+% optimum lambda from validation set
+[min_error_val, min_idx] = min(error_val);
+lambda_best = lambda_vec(min_idx);
+
+% use that lambda to get training error
+theta_best = trainLinearReg(X_poly, y, lambda_best);
+[error_test, ~] = linearRegCostFunction(X_poly_test, ytest, theta_best, 0);
+fprintf('Test set error after validation: %f\n', ...
+            error_test);
+
 
 close all;
 plot(lambda_vec, error_train, lambda_vec, error_val);
