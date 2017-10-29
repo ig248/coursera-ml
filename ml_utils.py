@@ -1,5 +1,6 @@
 import numpy as np
-from sklearn.model_selection import learning_curve
+from sklearn.model_selection import learning_curve, validation_curve
+import matplotlib.pyplot as plt
 
 # http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html
 def plot_validation_curve(estimator, title, X, y, cv=None, scoring=None,
@@ -150,7 +151,7 @@ def plot_learning_curve(estimator, title, X, y, cv=None, scoring=None,
              label="Cross-validation score")
 
     plt.legend(loc="best")
-    return plt
+    
     
 # http://scikit-learn.org/stable/auto_examples/model_selection/plot_randomized_search.html
 # Utility function to report best scores
